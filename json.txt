@@ -48,3 +48,5 @@
   },
   "homepage": "https://github.com/Manuely-Candido/jogo-da-velha#readme"
 }
+
+Pensei em colocar algum diferencial no jogo, para ele ficar mais interativo com os jogadores, como por exemplo um formato diferente do tabuleiro, ou algum poder de algum jogador, essas são algumas sugestões, não precisa ser necessariamente esses exemplos
