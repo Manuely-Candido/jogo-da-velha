@@ -1,0 +1,50 @@
+{
+  "name": "jogo-da-velha",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "oxlint",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "oxlint": "^1.75.0",
+    "vite": "^8.2.0"
+  }
+}
+
+
+{
+  "name": "jogo-da-velha",
+  "version": "1.0.0",
+  "description": "Jogo da Velha com React",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Manuely-Candido/jogo-da-velha.git"
+  },
+  "keywords": [
+    "jogo",
+    "da",
+    "velha",
+    "react"
+  ],
+  "author": "Manuely Candido",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Manuely-Candido/jogo-da-velha/issues"
+  },
+  "homepage": "https://github.com/Manuely-Candido/jogo-da-velha#readme"
+}
