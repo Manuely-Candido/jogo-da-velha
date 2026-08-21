@@ -1,0 +1,27 @@
+/* Bloco Principal: Botão da Célula/Quadrado */
+.square {
+  width: 80px;
+  height: 80px;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: #ffffff;
+  border: 2px solid #6c757d;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Efeito Hover */
+.square:hover {
+  background-color: #f8f9fa;
+  transform: scale(1.03);
+}
+
+/* Modificador para quando a célula possui Escudo Ativo */
+.square--protected {
+  background-color: #e2e3e5;
+  border-color: #ffc107;
+}

@@ -1,0 +1,18 @@
+/* Bloco do Tabuleiro */
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #f1f3f5;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Linhas do Tabuleiro */
+.board__row {
+  display: flex;
+  gap: 10px;
+}
