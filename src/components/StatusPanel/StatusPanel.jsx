@@ -24,7 +24,10 @@ export default function StatusPanel({
   oShieldUsed,
   isXNext,
   isGameOver,
-  onReset
+  onReset,
+  xWins = 0,
+  oWins = 0,
+  draws = 0
 }) {
   // Verifica se o jogador atual já gastou seu único escudo
   const currentShieldUsed = isXNext ? xShieldUsed : oShieldUsed;
@@ -33,6 +36,16 @@ export default function StatusPanel({
     <div className={styles.panel}>
       {/* Exibição do Status da Partida */}
       <h2 className={styles.panel__status}>{statusText}</h2>
+
+      {/* Placar de Vitórias */}
+      <div className="w-100 p-2 bg-light rounded text-center border">
+        <h6 className="m-0 mb-1 fw-bold">🏆 Placar Geral</h6>
+        <div className="d-flex justify-content-between text-muted small px-2">
+          <span>X: <strong>{xWins}</strong></span>
+          <span>Empates: <strong>{draws}</strong></span>
+          <span>O: <strong>{oWins}</strong></span>
+        </div>
+      </div>
 
       {/* Controles de Poder Especial (Escudo) */}
       <div className={styles.panel__powers}>

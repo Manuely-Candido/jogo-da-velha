@@ -11,9 +11,9 @@ import styles from './Square.module.css';
  * - onSquareClick (function): Função executada ao clicar na célula (elevação de estado).
  * - isProtected (boolean): Indica se a célula está sob proteção do Escudo.
  */
-export default function Square({ value, onSquareClick, isProtected }) {
+export default function Square({ value, onSquareClick, isProtected, isWinningSquare }) {
   // Define dinamicamente as classes de estilo usando CSS Modules
-  const squareClasses = `${styles.square} ${isProtected ? styles['square--protected'] : ''}`;
+  const squareClasses = `${styles.square} ${isProtected ? styles['square--protected'] : ''} ${isWinningSquare ? styles['square--winning'] : ''}`.trim();
 
   return (
     <button 

@@ -25,3 +25,13 @@
   background-color: #e2e3e5;
   border-color: #ffc107;
 }
+
+/* Modificador para células da linha vitoriosa */
+.square--winning {
+  background-color: #d1e7dd;
+  border-color: #198754;
+  color: #0f5132;
+  font-weight: bold;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(25, 135, 84, 0.5);
+}

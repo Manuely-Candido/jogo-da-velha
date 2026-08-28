@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Board from '../Board/Board';
 import StatusPanel from '../StatusPanel/StatusPanel';
 import HistoryList from '../HistoryList/HistoryList';
+import styles from './Game.module.css';
 // import styles from './App.module.css'; // ou o CSS Module de layout do Game
 
 /**
@@ -25,7 +26,8 @@ function calculateWinner(squares) {
       squares[a] === squares[b] &&
       squares[a] === squares[c]
     ) {
-      return squares[a];
+    // Retorna tanto o símbolo do vencedor quanto os 3 índices vitoriosos
+      return { winner: squares[a], line: lines[i] };
     }
   }
   return null;
@@ -44,12 +46,21 @@ export default function Game() {
   const [oShieldUsed, setOShieldUsed] = useState(false);     // Se O já gastou seu escudo
   const [protectedSquare, setProtectedSquare] = useState(null); // Índice da célula imune
 
+  // 4. Estados do Placar de Vitórias
+  const [xWins, setXWins] = useState(0);
+  const [oWins, setOWins] = useState(0);
+  const [draws, setDraws] = useState(0);
+
   // Derivações de Estado (Valores calculados durante a renderização)
-  const isXNext = currentMove % 2 === 0; // Turnos pares são do X, ímpares do O
-  const currentSquares = history[currentMove]; // Tabuleiro do momento atual
-  const winner = calculateWinner(currentSquares); // Identifica se houve vencedor
+  const isXNext = currentMove % 2 === 0; // Turnos pares são do X, ímpares do O[cite: 1]
+  const currentSquares = history[currentMove]; // Tabuleiro do momento atual[cite: 1]
   
-  // Verifica se o tabuleiro está cheio sem vencedores (Empate / Velha)
+  // Identifica o vencedor e a linha vitoriosa (array com os 3 índices)
+  const winningInfo = calculateWinner(currentSquares);
+  const winner = winningInfo ? winningInfo.winner : null;
+  const winningLine = winningInfo ? winningInfo.line : [];
+  
+  // Verifica se o tabuleiro está cheio sem vencedores (Empate / Velha)[cite: 1]
   const isDraw = !winner && currentSquares.every((square) => square !== null);
   const isGameOver = Boolean(winner || isDraw);
 
@@ -109,6 +120,19 @@ export default function Game() {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
+
+    // --- ATUALIZAÇÃO DO PLACAR ---
+    const newWinningInfo = calculateWinner(nextSquares);
+    const newWinner = newWinningInfo ? newWinningInfo.winner : null;
+    const newIsDraw = !newWinner && nextSquares.every((sq) => sq !== null);
+
+    if (newWinner === 'X') {
+      setXWins((prev) => prev + 1);
+    } else if (newWinner === 'O') {
+      setOWins((prev) => prev + 1);
+    } else if (newIsDraw) {
+      setDraws((prev) => prev + 1);
+    }
   }
 
   /**
@@ -149,6 +173,9 @@ export default function Game() {
             isXNext={isXNext}
             isGameOver={isGameOver}
             onReset={handleReset}
+            xWins={xWins}   // <-- Nova prop!
+            oWins={oWins}   // <-- Nova prop!
+            draws={draws}   // <-- Nova prop!
           />
         </div>
 
@@ -158,6 +185,7 @@ export default function Game() {
             squares={currentSquares}
             onPlay={handlePlay}
             protectedSquare={protectedSquare}
+            winningLine={winningLine} // <-- Nova prop enviada para o Board
           />
         </div>
 
