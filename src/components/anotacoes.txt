@@ -1,0 +1,10 @@
+GAME --> Se no futuro a sua aplicação crescesse e tivesse, por exemplo, um menu inicial, uma tela de configurações, um placar global ou múltiplos jogos, a boa prática seria mover toda essa regra do jogo para um componente Game.jsx dentro da pasta de componentes.
+
+
+
+SLICE() --> o .slice() seria tipo uma foto/cópia nova do tabuleiro, ele é melhor porque quando retornarmos um array no React, nem sempre ele saberia que o Estado mudou
+
+O que acontece com a lista de histórico se o jogador voltar para a jogada #1 e fizer um clique em um quadrado diferente? 
+Ele irá capturar o novo movimento da jogada e irá apagar a outra
+
+

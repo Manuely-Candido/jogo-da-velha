@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Board from './components/Board/Board';
-import StatusPanel from './components/StatusPanel/StatusPanel';
-import HistoryList from './components/HistoryList/HistoryList';
-import styles from './App.module.css'; // ou o CSS Module de layout do Game
+import Board from '../Board/Board';
+import StatusPanel from '../StatusPanel/StatusPanel';
+import HistoryList from '../HistoryList/HistoryList';
+// import styles from './App.module.css'; // ou o CSS Module de layout do Game
 
 /**
  * Função Auxiliar: calculateWinner
