@@ -1,12 +1,12 @@
-/* Bloco Principal: Botão da Célula/Quadrado */
+/* Célula individual do tabuleiro */
 .square {
-  width: 80px;
-  height: 80px;
-  font-size: 2rem;
+  width: 90px;
+  height: 90px;
+  font-size: 2.2rem;
   font-weight: bold;
-  background-color: #ffffff;
-  border: 2px solid #6c757d;
-  border-radius: 8px;
+  background-color: #f8f9fa;
+  border: 2px solid #dee2e6;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   display: flex;
@@ -14,24 +14,34 @@
   justify-content: center;
 }
 
-/* Efeito Hover */
+/* Efeito ao passar o mouse */
 .square:hover {
-  background-color: #f8f9fa;
-  transform: scale(1.03);
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Modificador para quando a célula possui Escudo Ativo */
+/* Célula Protegida por Escudo */
 .square--protected {
-  background-color: #e2e3e5;
+  background-color: #fff3cd;
   border-color: #ffc107;
 }
 
-/* Modificador para células da linha vitoriosa */
+/* Célula da Trinca Vitoriosa */
 .square--winning {
   background-color: #d1e7dd;
   border-color: #198754;
   color: #0f5132;
   font-weight: bold;
   transform: scale(1.05);
-  box-shadow: 0 0 10px rgba(25, 135, 84, 0.5);
+  box-shadow: 0 0 15px rgba(25, 135, 84, 0.4);
+}
+
+/* Adaptação para celulares menores */
+@media (max-width: 400px) {
+  .square {
+    width: 75px;
+    height: 75px;
+    font-size: 1.8rem;
+  }
 }

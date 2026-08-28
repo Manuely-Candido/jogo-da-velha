@@ -1,35 +1,52 @@
 /* Container Principal do Painel */
+/* Container Principal do Painel com separacao visual */
 .panel {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 15px;
+  gap: 1.25rem;
   background-color: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(13, 110, 253, 0.08);
+  border: 1px solid #e7f1ff;
   width: 100%;
   max-width: 320px;
 }
 
-/* Texto de Status */
+/* Bloco superior de Status */
+.panel__header {
+  text-align: center;
+  border-bottom: 2px solid #e7f1ff;
+  padding-bottom: 0.75rem;
+}
+
 .panel__status {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #212529;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0d6efd;
   margin: 0;
 }
 
-/* Seção de Poderes Especiais */
-.panel__powers {
+/* Secao intermediaria para controles do Escudo */
+.panel__section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  width: 100%;
+  gap: 0.75rem;
+  background-color: #f8faff;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid #d0e2ff;
 }
 
-.panel__power-info {
-  font-size: 0.875rem;
-  color: #6c757d;
-  text-align: center;
+.panel__shield-status {
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.85rem;
+  color: #495057;
+  font-weight: 500;
+}
+
+/* Rodape com o botao de reset */
+.panel__footer {
+  margin-top: auto;
 }
