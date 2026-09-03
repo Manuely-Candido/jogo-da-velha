@@ -1,0 +1,11 @@
+/* src/App.css */
+/* Estilo do container global da aplicação */
+.app-container {
+  background-color: #e8f2fe; /* Tom de azul claro elegante */
+  min-height: 100vh;          /* Garante que o fundo ocupe 100% da altura da tela */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}

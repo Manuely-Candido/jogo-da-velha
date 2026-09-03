@@ -1,13 +1,14 @@
 /* Célula individual do tabuleiro */
 /* Square.module.css - Célula expandida */
+/* Botão Célula/Quadrado Expandido */
 .square {
-  width: 105px; /* Aumentado de 80px para 105px */
-  height: 105px; /* Aumentado de 80px para 105px */
-  font-size: 2.8rem; /* Fonte maior para preencher o novo espaço */
-  font-weight: bold;
+  width: 110px; /* Célula maior para preencher o centro da tela */
+  height: 110px;
+  font-size: 3rem; /* Símbolos grandes e fáceis de visualizar */
+  font-weight: 700;
   background-color: #ffffff;
-  border: 0.5px solid #6c757d;
-  border-radius: 12px;
+  border: 2px solid #dee2e6;
+  border-radius: 14px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   display: flex;
@@ -15,27 +16,24 @@
   justify-content: center;
 }
 
-/* Efeito ao passar o mouse */
 .square:hover {
   background-color: #e9ecef;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px); /* Efeito suave de elevação ao passar o mouse */
 }
 
-/* Célula Protegida por Escudo */
+/* Modificador BEM: Célula sob proteção do Escudo */
 .square--protected {
-  background-color: #fff3cd;
+  background-color: #fff3cd; /* Fundo amarelado suave de proteção */
   border-color: #ffc107;
 }
 
-/* Célula da Trinca Vitoriosa */
+/* Modificador BEM: Célula da linha campeã */
 .square--winning {
   background-color: #d1e7dd;
   border-color: #198754;
   color: #0f5132;
-  font-weight: bold;
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(25, 135, 84, 0.4);
+  box-shadow: 0 0 12px rgba(25, 135, 84, 0.4);
 }
 
 /* Adaptação para celulares menores */

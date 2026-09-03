@@ -42,46 +42,84 @@ export default function StatusPanel({
 
   return (
     <div className={styles.panelGroup}>
-      {/* --- BLOCO SUPERIOR: Status do Turno + Placar Geral --- */}
+
+      {/* 1. CARD SUPERIOR: Turno Atual + Placar Geral */}
       <div className={styles.card}>
-        <h2 className={styles.card__status}>{statusText}</h2>
-        
-        <div className="w-100 p-2 bg-light rounded text-center border">
-          <h6 className="m-0 mb-1 fw-bold">🏆 Placar Geral</h6>
-          <div className="d-flex justify-content-between text-muted small px-2">
-            <span>X: <strong>{xWins}</strong></span>
-            <span>Empates: <strong>{draws}</strong></span>
-            <span>O: <strong>{oWins}</strong></span>
+        {/* SEÇÃO 1: TURNO ATUAL */}
+        <div className={styles.card__section}>
+          <span className={styles.card__label}>TURNO ATUAL</span>
+          <div className={styles.turnBox}>
+            <div className={styles.turnBox__avatar}>
+              {isXNext ? 'X' : 'O'}
+            </div>
+            <div className={styles.turnBox__info}>
+              <strong>Jogador {isXNext ? 'X' : 'O'}</strong>
+              <small>Sua vez</small>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* --- BLOCO INFERIOR: Poder Especial (Escudo) + Botão de Reiniciar --- */}
-      <div className={styles.card}>
-        <div className={styles.card__powers}>
-          {/* Botão para ativar/desativar intenção do Escudo */}
+
+        {/* SEÇÃO 2: PLACAR */}
+        <div className={styles.card__section}>
+          <span className={styles.card__label}>PLACAR</span>
+          <div className={styles.scoreList}>
+            <div className={styles.scoreRow}>
+              <div className={styles.scoreRow__player}>
+                <span className={styles.scoreRow__symbolX}>X</span>
+                <span>Vitórias</span>
+              </div>
+              <strong className={styles.scoreRow__value}>{xWins}</strong>
+            </div>
+
+            <div className={styles.scoreRow}>
+              <div className={styles.scoreRow__player}>
+                <span className={styles.scoreRow__symbolO}>O</span>
+                <span>Vitórias</span>
+              </div>
+              <strong className={styles.scoreRow__value}>{oWins}</strong>
+            </div>
+
+            <div className={styles.scoreRow}>
+              <div className={styles.scoreRow__player}>
+                <span className={styles.scoreRow__symbolDraw}>=</span>
+                <span>Empates</span>
+              </div>
+              <strong className={styles.scoreRow__value}>{draws}</strong>
+            </div>
+          </div>
+        </div>
+
+        {/* 2. CARD INFERIOR: Poder Especial (Escudo) + Ações */}
+        <div className={styles.card}>
+          <div className={styles.card__powers}>
+            <span className="fw-bold text-uppercase text-secondary small">Poder Especial</span>
+
+            {/* Botão de Ativação do Escudo */}
+            <button
+              className={`btn ${shieldActive ? 'btn-warning' : 'btn-outline-warning'} w-100 py-2 fw-semibold`}
+              onClick={onActivateShield}
+              disabled={isGameOver || currentShieldUsed}
+            >
+              {shieldActive ? '🛡️ Escudo Ativo! Clique no Tabuleiro' : '🛡️ Ativar Escudo'}
+            </button>
+
+            {/* Status de Disponibilidade do Escudo para cada jogador */}
+            <div className={styles['card__power-info']}>
+              <small>Jogador X: <strong>{xShieldUsed ? '❌ Usado' : '✅ Disponível'}</strong></small>
+              <br />
+              <small>Jogador O: <strong>{oShieldUsed ? '❌ Usado' : '✅ Disponível'}</strong></small>
+            </div>
+          </div>
+
+          {/* Botão de Reiniciar a Partida */}
           <button
-            className={`btn ${shieldActive ? 'btn-warning' : 'btn-outline-warning'} w-100`}
-            onClick={onActivateShield}
-            disabled={isGameOver || currentShieldUsed}
+            className="btn btn-dark w-100 mt-2 py-2 fw-semibold"
+            onClick={onReset}
           >
-            {shieldActive ? '🛡️ Escudo Pronto! Clique na Célula' : '🛡️ Ativar Escudo'}
+            🔄 Reiniciar Partida
           </button>
-
-          {/* Indicadores do status do escudo de cada jogador */}
-          <div className={styles['card__power-info']}>
-            <p className="m-0">Escudo X: {xShieldUsed ? '❌ Usado' : '✅ Disponível'}</p>
-            <p className="m-0">Escudo O: {oShieldUsed ? '❌ Usado' : '✅ Disponível'}</p>
-          </div>
         </div>
-
-        {/* Botão de Ação para Reiniciar o Jogo */}
-        <button
-          className="btn btn-secondary w-100 mt-2"
-          onClick={onReset}
-        >
-          🔄 Reiniciar Partida
-        </button>
       </div>
     </div>
   );

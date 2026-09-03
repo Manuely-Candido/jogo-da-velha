@@ -1,20 +1,19 @@
 /* Container do Tabuleiro */
+/* Container que envolve as 3 linhas do tabuleiro */
 .board {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 12px; /* Espaçamento entre as linhas */
   background-color: #ffffff;
-  padding: 24px;
+  padding: 24px; /* Preenchimento em volta das células */
   border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); /* Sombra elegante */
-  width: 100%;
-  max-width: 360px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* Destaque em relação ao fundo */
 }
 
-/* Linha de Células */
+/* Cada linha contendo 3 células */
 .board__row {
   display: flex;
-  gap: 12px;
+  gap: 12px; /* Espaçamento horizontal entre as células */
 }

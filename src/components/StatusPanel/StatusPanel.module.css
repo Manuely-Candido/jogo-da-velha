@@ -52,80 +52,120 @@
 }
 
 /* Agrupador dos dois cards laterais */
+/* Container que agrupa os dois cards empilhados */
 .panelGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 10rem; /* Espaçamento vertical entre os dois containers */
-  width: 100%;
+  display: flex; /* Utiliza Flexbox para organização em coluna */
+  flex-direction: column; /* Empilha os cards na vertical */
+  gap: 1.25rem; /* Espaçamento de 20px entre o card do placar e o do escudo */
+  width: 100%; /* Garante que ocaupe toda a largura disponível da coluna */
 }
 
-/* Card individual do painel (Aplica visual de caixa flutuante) */
+/* Card individual (Caixa branca com sombra suave) */
+/* Card principal de fundo branco */
 .card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  background-color: #ffffff;
-  padding: 16px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  gap: 20px; /* Espaçamento entre a seção TURNO e PLACAR */
   width: 100%;
 }
 
-/* Elemento BEM: Status da partida */
-.card__status {
-  font-size: 1.15rem;
-  font-weight: bold;
-  color: #0d6efd;
-  margin: 0;
-  text-align: center;
-}
-
-/* Elemento BEM: Seção de Poderes Especiais */
-.card__powers {
+/* Agrupador de cada seção */
+.card__section {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 100%;
 }
 
-.card__power-info {
-  font-size: 0.85rem;
-  color: #6c757d;
-  text-align: center;
+/* Títulos pequenos em maiúsculo */
+.card__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #8c98a4;
+  letter-spacing: 0.5px;
 }
 
-/* Aumento do tamanho das células para dar destaque ao tabuleiro central */
-.square {
-  width: 100px; /* Expandido de 80px para 100px */
-  height: 100px; /* Expandido de 80px para 100px */
-  font-size: 2.5rem; /* Fonte ampliada */
-  font-weight: bold;
+/* --- TURNO ATUAL --- */
+.turnBox {
+  background-color: #f0f7ff; /* Fundo azul bem claro */
+  border: 1px solid #d0e2ff;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.turnBox__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   background-color: #ffffff;
-  border: 2px solid #6c757d;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  border: 2px solid #0d6efd;
+  color: #0d6efd;
+  font-weight: bold;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.square:hover {
+.turnBox__info {
+  display: flex;
+  flex-direction: column;
+  color: #0d6efd;
+}
+
+.turnBox__info small {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+/* --- PLACAR --- */
+.scoreList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   background-color: #f8f9fa;
-  transform: scale(1.03);
+  padding: 12px;
+  border-radius: 12px;
 }
 
-.square--protected {
-  background-color: #e2e3e5;
-  border-color: #ffc107;
+.scoreRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #495057;
 }
 
-.square--winning {
-  background-color: #d1e7dd;
-  border-color: #198754;
-  color: #0f5132;
+.scoreRow__player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.scoreRow__symbolX {
+  color: #0d6efd;
   font-weight: bold;
-  transform: scale(1.05);
-  box-shadow: 0 0 10px rgba(25, 135, 84, 0.5);
+  font-size: 1.1rem;
+}
+
+.scoreRow__symbolO {
+  color: #dc3545;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.scoreRow__symbolDraw {
+  color: #6c757d;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.scoreRow__value {
+  color: #0d6efd;
 }
