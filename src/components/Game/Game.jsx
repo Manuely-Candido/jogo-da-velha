@@ -158,8 +158,8 @@ export default function Game() {
   }
 
   return (
-    <div className="container py-4">
-    <h1 className="text-center mb-4">Jogo da Velha com Poder Especial</h1>
+    <div className={styles.gameCard}>
+    <h1 className={styles.gameCard__title}>Jogo da Velha com Poder Especial</h1>
    
     <div className="row justify-content-center align-items-start g-4">
       {/* Coluna Esquerda (Mais estreita: col-md-3) com 2 containers empilhados */}
