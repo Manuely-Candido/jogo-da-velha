@@ -1,11 +1,12 @@
 /* Célula individual do tabuleiro */
+/* Square.module.css - Célula expandida */
 .square {
-  width: 90px;
-  height: 90px;
-  font-size: 2.2rem;
+  width: 105px; /* Aumentado de 80px para 105px */
+  height: 105px; /* Aumentado de 80px para 105px */
+  font-size: 2.8rem; /* Fonte maior para preencher o novo espaço */
   font-weight: bold;
-  background-color: #f8f9fa;
-  border: 2px solid #dee2e6;
+  background-color: #ffffff;
+  border: 0.5px solid #6c757d;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;

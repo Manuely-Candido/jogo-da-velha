@@ -50,3 +50,82 @@
 .panel__footer {
   margin-top: auto;
 }
+
+/* Agrupador dos dois cards laterais */
+.panelGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem; /* Espaçamento vertical entre os dois containers */
+  width: 100%;
+}
+
+/* Card individual do painel (Aplica visual de caixa flutuante) */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 100%;
+}
+
+/* Elemento BEM: Status da partida */
+.card__status {
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #0d6efd;
+  margin: 0;
+  text-align: center;
+}
+
+/* Elemento BEM: Seção de Poderes Especiais */
+.card__powers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.card__power-info {
+  font-size: 0.85rem;
+  color: #6c757d;
+  text-align: center;
+}
+
+/* Aumento do tamanho das células para dar destaque ao tabuleiro central */
+.square {
+  width: 100px; /* Expandido de 80px para 100px */
+  height: 100px; /* Expandido de 80px para 100px */
+  font-size: 2.5rem; /* Fonte ampliada */
+  font-weight: bold;
+  background-color: #ffffff;
+  border: 2px solid #6c757d;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.square:hover {
+  background-color: #f8f9fa;
+  transform: scale(1.03);
+}
+
+.square--protected {
+  background-color: #e2e3e5;
+  border-color: #ffc107;
+}
+
+.square--winning {
+  background-color: #d1e7dd;
+  border-color: #198754;
+  color: #0f5132;
+  font-weight: bold;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(25, 135, 84, 0.5);
+}

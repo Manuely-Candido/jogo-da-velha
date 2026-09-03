@@ -159,45 +159,45 @@ export default function Game() {
 
   return (
     <div className="container py-4">
-      <h1 className="text-center mb-4">🎮 Jogo da Velha com Poder Especial</h1>
-      
-      <div className="row justify-content-center align-items-start g-4">
-        {/* Painel Esquerdo: Status e Controles */}
-        <div className="col-12 col-md-4 d-flex justify-content-center">
-          <StatusPanel
-            statusText={statusText}
-            onActivateShield={handleActivateShield}
-            shieldActive={shieldActive}
-            xShieldUsed={xShieldUsed}
-            oShieldUsed={oShieldUsed}
-            isXNext={isXNext}
-            isGameOver={isGameOver}
-            onReset={handleReset}
-            xWins={xWins}   // <-- Nova prop!
-            oWins={oWins}   // <-- Nova prop!
-            draws={draws}   // <-- Nova prop!
-          />
-        </div>
+    <h1 className="text-center mb-4">🎮 Jogo da Velha com Poder Especial</h1>
+   
+    <div className="row justify-content-center align-items-start g-4">
+      {/* Coluna Esquerda (Mais estreita: col-md-3) com 2 containers empilhados */}
+      <div className="col-12 col-md-3 d-flex flex-column gap-3">
+        <StatusPanel
+          statusText={statusText}
+          onActivateShield={handleActivateShield}
+          shieldActive={shieldActive}
+          xShieldUsed={xShieldUsed}
+          oShieldUsed={oShieldUsed}
+          isXNext={isXNext}
+          isGameOver={isGameOver}
+          onReset={handleReset}
+          xWins={xWins}
+          oWins={oWins}
+          draws={draws}
+        />
+      </div>
 
-        {/* Painel Central: Tabuleiro */}
-        <div className="col-12 col-md-4 d-flex justify-content-center">
-          <Board
-            squares={currentSquares}
-            onPlay={handlePlay}
-            protectedSquare={protectedSquare}
-            winningLine={winningLine} // <-- Nova prop enviada para o Board
-          />
-        </div>
+      {/* Coluna Central (Maior destaque: col-md-6) */}
+      <div className="col-12 col-md-6 d-flex justify-content-center">
+        <Board
+          squares={currentSquares}
+          onPlay={handlePlay}
+          protectedSquare={protectedSquare}
+          winningLine={winningLine}
+        />
+      </div>
 
-        {/* Painel Direito: Histórico de Jogadas */}
-        <div className="col-12 col-md-4 d-flex justify-content-center">
-          <HistoryList
-            history={history}
-            currentMove={currentMove}
-            onJumpTo={handleJumpTo}
-          />
-        </div>
+      {/* Coluna Direita (Histórico: col-md-3) */}
+      <div className="col-12 col-md-3 d-flex justify-content-center">
+        <HistoryList
+          history={history}
+          currentMove={currentMove}
+          onJumpTo={handleJumpTo}
+        />
       </div>
     </div>
+  </div>
   );
 }
