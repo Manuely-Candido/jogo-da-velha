@@ -133,7 +133,7 @@ Ter o **Node.js** (versão 18 ou superior) e o **npm** ou **yarn** instalados na
 
 1. **Clonar o repositório:**
    ```bash
-   git clone https://github.com/seu-usuario/jogo-da-velha-react.git
+   git clone https://github.com/Manuely-Candido/jogo-da-velha.git   
    ```
 
 2. **Acessar a pasta do projeto:**
@@ -193,5 +193,5 @@ Durante o desenvolvimento deste projeto, adotamos a seguinte estratégia:
 Desenvolvido como projeto prático do **Curso Técnico em Desenvolvimento de Sistemas**.
 
 - **Aluna(o):** Manuely Cândido
-- **Mentoria/Professora:**  — Professora Especialista em Front-end  
+- **Mentoria/Professor:**  — Ivo Neto
 - **Referência:** Documentação Oficial do React — [Tutorial: Tic-Tac-Toe](https://pt-br.react.dev/learn/tutorial-tic-tac-toe)
