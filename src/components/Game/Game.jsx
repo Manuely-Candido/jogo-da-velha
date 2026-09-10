@@ -192,7 +192,7 @@ export default function Game() {
         <button className="btn btn-outline-secondary btn-sm" onClick={handleBackToMenu}>
           ⬅️ Voltar ao Menu
         </button>
-        <h1 className="h3 m-0">🎮 Jogo da Velha com Poder Especial</h1>
+        <h1 className="text-center mb-4 mt-3 mt-md-0">🎮 Jogo da Velha com Poder Especial</h1>
         <div style={{ width: '100px' }}></div> {/* Espaçador visual */}
       </div>
 

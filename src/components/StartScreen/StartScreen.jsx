@@ -23,7 +23,7 @@ export default function StartScreen({ onStartGame }) {
 
   return (
     <div className={styles.startScreen}>
-      <h1 className={styles.startScreen__title}>🎮 Jogo da Velha</h1>
+      <h1 className={styles.startScreen__title}> Jogo da Velha</h1>
       <p className={styles.startScreen__welcome}>
         Seja bem-vindo(a)! Escolha o modo de jogo para começar a partida:
       </p>
@@ -61,7 +61,7 @@ export default function StartScreen({ onStartGame }) {
         className="btn btn-success btn-lg mt-4 px-5"
         onClick={handleStart}
       >
-        🚀 Iniciar Jogo
+         Iniciar Jogo
       </button>
     </div>
   );
