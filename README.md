@@ -67,12 +67,16 @@ Refatorar a aplicação original do tutorial do React aplicando os conceitos est
 
 ## ⚙️ Requisitos Funcionais
 
-- [x] Permite iniciar e reiniciar uma partida.
-- [x] Alterna automaticamente a vez entre os jogadores (`X` e `O`).
-- [x] Impede jogadas sobre células já ocupadas ou após o fim da partida.
-- [x] Detecta e exibe em tempo real vitórias e empates ("Velha").
-- [x] Permite navegar no histórico de jogadas ("Time Travel").
-- [x] Oferece layout responsivo para dispositivos móveis e desktop.
+[RF01] Iniciar e Reiniciar a Partida: Permitir restaurar o tabuleiro para o estado original, zerando histórico e recarregando escudos.  
+[RF02] Alternância Automática de Turnos: Alternar automaticamente o turno entre 'X' e 'O' a cada jogada válida.  
+[RF03] Ativação do Poder Especial (Escudo): Interface dedicada para ativação do escudo de uso único por jogador.  
+[RF04] Indicação e Proteção Visual de Célula: Renderizar o marcador '🛡️' e impedir jogadas do oponente na célula imune.  
+[RF05] Bloqueio de Jogadas Inválidas: Ignorar tentativas de jogada sobre posições já ocupadas ou imunes.  
+[RF06] Congelamento Pós-Fim de Jogo: Desabilitar tabuleiro e poderes assim que a partida for finalizada.  
+[RF07] Detecção e Exibição do Vencedor: Avaliar combinações vitoriosas e anunciar o campeão no painel.  
+[RF08] Detecção e Exibição de Empate: Identificar o preenchimento total do tabuleiro sem vencedores ("Deu Velha").  
+[RF09] Histórico de Jogadas (Time Travel): Manter registro dos estados passados e permitir navegação temporal.  
+[RF10] Interface Responsiva e Acessível: Adaptar a interface para mobile e desktop utilizando Bootstrap 5 e CSS Modules.
 
 ---
 
