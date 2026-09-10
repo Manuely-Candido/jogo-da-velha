@@ -37,58 +37,40 @@ export default function StatusPanel({
   oWins = 0,
   draws = 0
 }) {
-  // Verifica se o jogador do turno atual já gastou seu escudo
   const currentShieldUsed = isXNext ? xShieldUsed : oShieldUsed;
 
   return (
-    <div className={styles.panelGroup}>
-
-      {/* 1. CARD SUPERIOR: Turno Atual + Placar Geral */}
-      <div className={styles.card}>
-        {/* SEÇÃO 1: TURNO ATUAL */}
-        <div className={styles.card__section}>
-          <span className={styles.card__label}>TURNO ATUAL</span>
-          <div className={styles.turnBox}>
-            <div className={styles.turnBox__avatar}>
+    <div className={styles.panel}>
+      {/* 1. SE O JOGO ACABOU: Mostra a faixa com o statusText (Vencedor / Empate / Campeão) */}
+      {isGameOver ? (
+        <div className="w-100 p-3 bg-success text-white rounded text-center shadow-sm fw-bold fs-5">
+          {statusText}
+        </div>
+      ) : (
+        /* 2. SE O JOGO ESTÁ ROLANDO: Mostra o cartão do Turno Atual que você já criou */
+        <div className={styles.panel__turn}>
+          <small className="text-uppercase text-muted fw-bold d-block mb-1">TURNO ATUAL</small>
+          <div className="d-flex align-items-center p-2 bg-light rounded border">
+            <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-2" style={{ width: '35px', height: '35px', fontWeight: 'bold' }}>
               {isXNext ? 'X' : 'O'}
             </div>
-            <div className={styles.turnBox__info}>
-              <strong>Jogador {isXNext ? 'X' : 'O'}</strong>
-              <small>Sua vez</small>
+            <div className="text-start">
+              <strong className="d-block text-primary">Jogador {isXNext ? 'X' : 'O'}</strong>
+              <small className="text-muted">Sua vez</small>
             </div>
           </div>
         </div>
+      )}
 
-
-        {/* SEÇÃO 2: PLACAR */}
-        <div className={styles.card__section}>
-          <span className={styles.card__label}>PLACAR</span>
-          <div className={styles.scoreList}>
-            <div className={styles.scoreRow}>
-              <div className={styles.scoreRow__player}>
-                <span className={styles.scoreRow__symbolX}>X</span>
-                <span>Vitórias</span>
-              </div>
-              <strong className={styles.scoreRow__value}>{xWins}</strong>
-            </div>
-
-            <div className={styles.scoreRow}>
-              <div className={styles.scoreRow__player}>
-                <span className={styles.scoreRow__symbolO}>O</span>
-                <span>Vitórias</span>
-              </div>
-              <strong className={styles.scoreRow__value}>{oWins}</strong>
-            </div>
-
-            <div className={styles.scoreRow}>
-              <div className={styles.scoreRow__player}>
-                <span className={styles.scoreRow__symbolDraw}>=</span>
-                <span>Empates</span>
-              </div>
-              <strong className={styles.scoreRow__value}>{draws}</strong>
-            </div>
-          </div>
+      {/* PLACAR SÉRIE */}
+      <div className="w-100 p-2 bg-light rounded border text-center my-2">
+        <small className="text-uppercase text-muted fw-bold d-block mb-1">PLACAR</small>
+        <div className="d-flex justify-content-around fw-bold">
+          <span className="text-primary">X Vitórias: {xWins}</span>
+          <span className="text-danger">O Vitórias: {oWins}</span>
+          <span className="text-secondary">Empates: {draws}</span>
         </div>
+      </div>
 
         {/* 2. CARD INFERIOR: Poder Especial (Escudo) + Ações */}
         <div className={styles.card}>
@@ -121,6 +103,5 @@ export default function StatusPanel({
           </button>
         </div>
       </div>
-    </div>
   );
 }

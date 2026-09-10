@@ -2,8 +2,7 @@ import { useState } from 'react';
 import Board from '../Board/Board';
 import StatusPanel from '../StatusPanel/StatusPanel';
 import HistoryList from '../HistoryList/HistoryList';
-import styles from './Game.module.css';
-// import styles from './App.module.css'; // ou o CSS Module de layout do Game
+import StartScreen from '../StartScreen/StartScreen'; // <-- 1. Importamos a Tela Inicial
 
 /**
  * Função Auxiliar: calculateWinner
@@ -16,17 +15,14 @@ function calculateWinner(squares) {
     [0, 3, 6], [1, 4, 7], [2, 5, 8], // Verticais
     [0, 4, 8], [2, 4, 6],          // Diagonais
   ];
-
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
-    // Verifica se a célula possui valor e se todas as 3 são iguais (excluindo o escudo puro)
     if (
       squares[a] &&
       squares[a] !== '🛡️' &&
       squares[a] === squares[b] &&
       squares[a] === squares[c]
     ) {
-    // Retorna tanto o símbolo do vencedor quanto os 3 índices vitoriosos
       return { winner: squares[a], line: lines[i] };
     }
   }
@@ -34,94 +30,110 @@ function calculateWinner(squares) {
 }
 
 export default function Game() {
-  // 1. Estado do Histórico: Matriz que guarda o tabuleiro de cada rodada
+  // 0. Estado de Navegação da Tela ('menu' ou 'playing')
+  const [screen, setScreen] = useState('menu');
+
+  // 1. Estado do Modo de Jogo e Regra de Vitórias
+  const [gameMode, setGameMode] = useState(1); 
+  const targetWins = Math.ceil(gameMode / 2); 
+
+  // 2. Estado do Histórico e Movimento Atual
   const [history, setHistory] = useState([Array(9).fill(null)]);
-  
-  // 2. Estado do Movimento Atual: Índice do histórico em que estamos no momento
   const [currentMove, setCurrentMove] = useState(0);
 
   // 3. Estados dos Escudos
-  const [shieldActive, setShieldActive] = useState(false); // Flag de intenção do poder
-  const [xShieldUsed, setXShieldUsed] = useState(false);     // Se X já gastou seu escudo
-  const [oShieldUsed, setOShieldUsed] = useState(false);     // Se O já gastou seu escudo
-  const [protectedSquare, setProtectedSquare] = useState(null); // Índice da célula imune
+  const [shieldActive, setShieldActive] = useState(false);
+  const [xShieldUsed, setXShieldUsed] = useState(false);
+  const [oShieldUsed, setOShieldUsed] = useState(false);
+  const [protectedSquare, setProtectedSquare] = useState(null);
 
-  // 4. Estados do Placar de Vitórias
+  // 4. Estados do Placar Geral
   const [xWins, setXWins] = useState(0);
   const [oWins, setOWins] = useState(0);
   const [draws, setDraws] = useState(0);
 
-  // Derivações de Estado (Valores calculados durante a renderização)
-  const isXNext = currentMove % 2 === 0; // Turnos pares são do X, ímpares do O[cite: 1]
-  const currentSquares = history[currentMove]; // Tabuleiro do momento atual[cite: 1]
-  
-  // Identifica o vencedor e a linha vitoriosa (array com os 3 índices)
+  // Derivações de Estado
+  const isXNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
+
   const winningInfo = calculateWinner(currentSquares);
   const winner = winningInfo ? winningInfo.winner : null;
   const winningLine = winningInfo ? winningInfo.line : [];
-  
-  // Verifica se o tabuleiro está cheio sem vencedores (Empate / Velha)[cite: 1]
-  const isDraw = !winner && currentSquares.every((square) => square !== null);
-  const isGameOver = Boolean(winner || isDraw);
 
-  // Definição dinâmica do texto de status para o StatusPanel
+  const isDraw = !winner && currentSquares.every((square) => square !== null);
+  const isMatchOver = Boolean(winner || isDraw);
+
+  // Verifica se a série teve um grande campeão
+  const seriesWinner = xWins >= targetWins ? 'X' : oWins >= targetWins ? 'O' : null;
+  const isSeriesOver = Boolean(seriesWinner);
+
+  // Texto dinâmico de status
   let statusText = '';
-  if (winner) {
-    statusText = `🏆 Vencedor: Jogador ${winner}!`;
+  if (seriesWinner) {
+    statusText = `🏆 CAMPEÃO DA SÉRIE: JOGADOR ${seriesWinner}! 🎉`;
+  } else if (winner) {
+    statusText = `🎉 Rodada Vencida por: Jogador ${winner}!`;
   } else if (isDraw) {
-    statusText = '👵 Empate! Deu Velha!';
+    statusText = '👵 Empate na rodada! Deu Velha!';
   } else {
     statusText = `Turno atual: Jogador ${isXNext ? 'X' : 'O'}`;
+  }
+
+  /**
+   * Manipulador: Início da Partida vindo da StartScreen
+   */
+  function handleStartGame(selectedMode) {
+    setGameMode(selectedMode);
+    handleResetAll();   // Reinicia placares
+    setScreen('playing'); // Alterna para a tela do jogo!
+  }
+
+  /**
+   * Manipulador: Voltar para o Menu Inicial
+   */
+  function handleBackToMenu() {
+    handleResetAll();
+    setScreen('menu');
   }
 
   /**
    * Manipulador: Ativação do Poder de Escudo
    */
   function handleActivateShield() {
-    // Alterna a intenção de usar o escudo para a próxima jogada
     setShieldActive(!shieldActive);
   }
 
   /**
-   * Manipulador: Realização de Jogada (Disparado quando uma célula é clicada)
+   * Manipulador: Realização de Jogada
    */
   function handlePlay(i) {
-    // REGRA DE SEGURANÇA: Cancela a jogada se o jogo acabou, se a célula já tá ocupada
-    // ou se a célula clicada está sob efeito do Escudo de proteção do oponente!
-    if (isGameOver || currentSquares[i] !== null || protectedSquare === i) {
+    if (isSeriesOver || isMatchOver || currentSquares[i] !== null || protectedSquare === i) {
       return;
     }
 
-    // Cria uma cópia imutável do tabuleiro atual
     const nextSquares = currentSquares.slice();
     let nextProtectedSquare = null;
 
     if (shieldActive) {
-      // Aplica a mecânica do Escudo
       nextSquares[i] = '🛡️';
-      nextProtectedSquare = i; // Define a célula atual como imune
-
-      // Consome o poder único do jogador corrente
+      nextProtectedSquare = i;
       if (isXNext) {
         setXShieldUsed(true);
       } else {
         setOShieldUsed(true);
       }
-      setShieldActive(false); // Reseta o botão de intenção do escudo
+      setShieldActive(false);
     } else {
-      // Jogada normal de preenchimento ('X' ou 'O')
       nextSquares[i] = isXNext ? 'X' : 'O';
     }
 
-    // Atualiza a posição imune (reseta a proteção na rodada seguinte se não usou escudo)
     setProtectedSquare(nextProtectedSquare);
 
-    // Trunca o histórico caso o jogador tenha feito uma viagem no tempo e jogado a partir dali
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
 
-    // --- ATUALIZAÇÃO DO PLACAR ---
+    // Avaliação de Placar
     const newWinningInfo = calculateWinner(nextSquares);
     const newWinner = newWinningInfo ? newWinningInfo.winner : null;
     const newIsDraw = !newWinner && nextSquares.every((sq) => sq !== null);
@@ -140,15 +152,14 @@ export default function Game() {
    */
   function handleJumpTo(nextMove) {
     setCurrentMove(nextMove);
-    // Ao voltar no tempo, removemos a proteção do escudo no tabuleiro
     setProtectedSquare(null);
     setShieldActive(false);
   }
 
   /**
-   * Manipulador: Reiniciar Partida
+   * Manipulador: Próxima Rodada
    */
-  function handleReset() {
+  function handleNextRound() {
     setHistory([Array(9).fill(null)]);
     setCurrentMove(0);
     setShieldActive(false);
@@ -157,47 +168,71 @@ export default function Game() {
     setProtectedSquare(null);
   }
 
+  /**
+   * Manipulador: Reiniciar Série Completa
+   */
+  function handleResetAll() {
+    handleNextRound();
+    setXWins(0);
+    setOWins(0);
+    setDraws(0);
+  }
+
+  // --- RENDERIZAÇÃO CONDICIONAL DE TELAS ---
+
+  // 1. Exibe a Tela Inicial se estiver no estado 'menu'
+  if (screen === 'menu') {
+    return <StartScreen onStartGame={handleStartGame} />;
+  }
+
+  // 2. Exibe o Tabuleiro e Painéis se estiver no estado 'playing'
   return (
-    <div className={styles.gameCard}>
-    <h1 className={styles.gameCard__title}>Jogo da Velha com Poder Especial</h1>
-   
-    <div className="row justify-content-center align-items-start g-4">
-      {/* Coluna Esquerda (Mais estreita: col-md-3) com 2 containers empilhados */}
-      <div className="col-12 col-md-3 d-flex flex-column gap-3">
-        <StatusPanel
-          statusText={statusText}
-          onActivateShield={handleActivateShield}
-          shieldActive={shieldActive}
-          xShieldUsed={xShieldUsed}
-          oShieldUsed={oShieldUsed}
-          isXNext={isXNext}
-          isGameOver={isGameOver}
-          onReset={handleReset}
-          xWins={xWins}
-          oWins={oWins}
-          draws={draws}
-        />
+    <div className="container py-4">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <button className="btn btn-outline-secondary btn-sm" onClick={handleBackToMenu}>
+          ⬅️ Voltar ao Menu
+        </button>
+        <h1 className="h3 m-0">🎮 Jogo da Velha com Poder Especial</h1>
+        <div style={{ width: '100px' }}></div> {/* Espaçador visual */}
       </div>
 
-      {/* Coluna Central (Maior destaque: col-md-6) */}
-      <div className="col-12 col-md-6 d-flex justify-content-center">
-        <Board
-          squares={currentSquares}
-          onPlay={handlePlay}
-          protectedSquare={protectedSquare}
-          winningLine={winningLine}
-        />
-      </div>
+      <div className="row justify-content-center align-items-start g-4">
+        {/* Painel de Status */}
+        <div className="col-12 col-lg-4 d-flex justify-content-center">
+          <StatusPanel
+            statusText={statusText}
+            onActivateShield={handleActivateShield}
+            shieldActive={shieldActive}
+            xShieldUsed={xShieldUsed}
+            oShieldUsed={oShieldUsed}
+            isXNext={isXNext}
+            isGameOver={isMatchOver || isSeriesOver}
+            onReset={isSeriesOver ? handleResetAll : handleNextRound}
+            xWins={xWins}
+            oWins={oWins}
+            draws={draws}
+          />
+        </div>
 
-      {/* Coluna Direita (Histórico: col-md-3) */}
-      <div className="col-12 col-md-3 d-flex justify-content-center">
-        <HistoryList
-          history={history}
-          currentMove={currentMove}
-          onJumpTo={handleJumpTo}
-        />
+        {/* Tabuleiro */}
+        <div className="col-12 col-lg-4 d-flex justify-content-center">
+          <Board
+            squares={currentSquares}
+            onPlay={handlePlay}
+            protectedSquare={protectedSquare}
+            winningLine={winningLine}
+          />
+        </div>
+
+        {/* Histórico */}
+        <div className="col-12 col-lg-4 d-flex justify-content-center">
+          <HistoryList
+            history={history}
+            currentMove={currentMove}
+            onJumpTo={handleJumpTo}
+          />
+        </div>
       </div>
     </div>
-  </div>
   );
 }
